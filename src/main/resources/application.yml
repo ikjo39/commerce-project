@@ -1,1 +1,12 @@
+spring:
+    datasource:
+        url: jdbc:mariadb://127.0.0.1:3306/pj_commerce
+        driver-class-name: org.mariadb.jdbc.Driver
+        username: commerce_user
+        password: a1234
 
+    jpa:
+        generate-ddl: true
+        hibernate:
+            ddl-auto: create-drop
+        show-sql: true
