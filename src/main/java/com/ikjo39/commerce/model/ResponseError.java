@@ -1,6 +1,5 @@
 package com.ikjo39.commerce.model;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -33,7 +32,6 @@ public class ResponseError {
 				responseErrors.add(ResponseError.of((FieldError) e));
 			});
 		}
-
 		return responseErrors;
 	}
 }

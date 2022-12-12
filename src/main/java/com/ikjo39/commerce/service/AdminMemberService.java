@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class AdminMemberService {
+
 	private final MemberRepository memberRepository;
 
 	public Page<Member> getAllMember(Pageable pageable) {

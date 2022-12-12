@@ -1,11 +1,8 @@
 package com.ikjo39.commerce.model;
 
-
 import com.ikjo39.commerce.entity.Member;
 import com.ikjo39.commerce.type.Role;
 import com.ikjo39.commerce.type.Status;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,6 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 public class MemberResponse {
+
 	private long id;
 	private String email;
 	private String name;
@@ -25,8 +23,6 @@ public class MemberResponse {
 	private String zipcode;
 	private String address;
 	private String addressDetail;
-
-
 
 	public static MemberResponse of(Member member) {
 		return MemberResponse.builder()

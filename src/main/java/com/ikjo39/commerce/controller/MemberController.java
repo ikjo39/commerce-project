@@ -2,8 +2,8 @@ package com.ikjo39.commerce.controller;
 
 import com.ikjo39.commerce.entity.Member;
 import com.ikjo39.commerce.model.MemberResponse;
+import com.ikjo39.commerce.model.MemberUpdateForm;
 import com.ikjo39.commerce.model.SignUpForm;
-import com.ikjo39.commerce.model.UpdateForm;
 import com.ikjo39.commerce.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,29 +25,21 @@ public class MemberController {
 
 	@PostMapping("/register")
 	public ResponseEntity<?> register(@RequestBody @Valid SignUpForm form) {
-
 		Member member = memberService.register(form);
-
 		return ResponseEntity.ok(member);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<?> memberInfo(@PathVariable Long id){
+	public ResponseEntity<?> memberInfo(@PathVariable Long id) {
 		Member member = memberService.getMember(id);
 		MemberResponse memberResponse = MemberResponse.of(member);
-
 		return ResponseEntity.ok(memberResponse);
 	}
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<?> update(@PathVariable Long id, @RequestBody @Valid UpdateForm form) {
-
+	public ResponseEntity<?> update(@PathVariable Long id,
+		@RequestBody @Valid MemberUpdateForm form) {
 		Member member = memberService.update(id, form);
-
 		return ResponseEntity.ok(member);
 	}
-
-
-
-
 }

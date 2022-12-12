@@ -11,12 +11,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UpdateForm {
+public class MemberUpdateForm {
 
 	private String phoneNumber;
 	private String zipCode;
 	private String address;
 	private String addressDetail;
-
-
 }
