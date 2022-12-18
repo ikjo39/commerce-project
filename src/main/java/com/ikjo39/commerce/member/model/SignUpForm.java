@@ -1,7 +1,7 @@
-package com.ikjo39.commerce.model;
+package com.ikjo39.commerce.member.model;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,4 +24,5 @@ public class SignUpForm {
 	private String password;
 	@NotBlank(message = "연락처는 필수 항목 합니다.")
 	private String phoneNumber;
+
 }

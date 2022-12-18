@@ -1,14 +1,16 @@
-package com.ikjo39.commerce.controller;
+package com.ikjo39.commerce.member.controller;
 
-import com.ikjo39.commerce.entity.Member;
-import com.ikjo39.commerce.model.MemberResponse;
-import com.ikjo39.commerce.model.MemberUpdateForm;
-import com.ikjo39.commerce.model.SignUpForm;
-import com.ikjo39.commerce.service.MemberService;
-import jakarta.validation.Valid;
+import com.ikjo39.commerce.member.entity.Member;
+import com.ikjo39.commerce.member.model.MemberResponse;
+import com.ikjo39.commerce.member.model.MemberUpdatePassword;
+import com.ikjo39.commerce.member.model.SignUpForm;
+import com.ikjo39.commerce.member.model.MemberUpdateForm;
+import com.ikjo39.commerce.member.service.MemberService;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -26,14 +28,13 @@ public class MemberController {
 	@PostMapping("/register")
 	public ResponseEntity<?> register(@RequestBody @Valid SignUpForm form) {
 		Member member = memberService.register(form);
-		return ResponseEntity.ok(member);
+		return ResponseEntity.ok(MemberResponse.of(member));
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> memberInfo(@PathVariable Long id) {
 		Member member = memberService.getMember(id);
-		MemberResponse memberResponse = MemberResponse.of(member);
-		return ResponseEntity.ok(memberResponse);
+		return ResponseEntity.ok(member);
 	}
 
 	@PutMapping("/update/{id}")
@@ -41,5 +42,10 @@ public class MemberController {
 		@RequestBody @Valid MemberUpdateForm form) {
 		Member member = memberService.update(id, form);
 		return ResponseEntity.ok(member);
+	}
+
+	@PatchMapping("/newPassword/{email}")
+	public ResponseEntity<?> changePassword(@PathVariable String email, @RequestBody @Valid MemberUpdatePassword form) {
+		return ResponseEntity.ok(memberService.updatePassword(email, form));
 	}
 }

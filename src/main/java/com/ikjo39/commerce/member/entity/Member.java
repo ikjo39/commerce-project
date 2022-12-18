@@ -1,13 +1,12 @@
-package com.ikjo39.commerce.entity;
+package com.ikjo39.commerce.member.entity;
 
-import com.ikjo39.commerce.type.Role;
-import com.ikjo39.commerce.type.Status;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.ikjo39.commerce.common.entity.BaseEntity;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

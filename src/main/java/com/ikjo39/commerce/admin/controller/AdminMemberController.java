@@ -1,7 +1,7 @@
-package com.ikjo39.commerce.controller;
+package com.ikjo39.commerce.admin.controller;
 
-import com.ikjo39.commerce.entity.Member;
-import com.ikjo39.commerce.service.AdminMemberService;
+import com.ikjo39.commerce.admin.service.AdminMemberService;
+import com.ikjo39.commerce.member.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

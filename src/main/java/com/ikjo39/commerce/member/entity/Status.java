@@ -1,4 +1,4 @@
-package com.ikjo39.commerce.type;
+package com.ikjo39.commerce.member.entity;
 
 public enum Status {
 	ING,

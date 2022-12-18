@@ -1,4 +1,4 @@
-package com.ikjo39.commerce.model;
+package com.ikjo39.commerce.common.model;
 
 import java.util.ArrayList;
 import java.util.List;

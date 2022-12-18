@@ -1,7 +1,7 @@
-package com.ikjo39.commerce.service;
+package com.ikjo39.commerce.admin.service;
 
-import com.ikjo39.commerce.entity.Member;
-import com.ikjo39.commerce.repository.MemberRepository;
+import com.ikjo39.commerce.member.entity.Member;
+import com.ikjo39.commerce.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

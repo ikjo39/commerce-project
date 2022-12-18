@@ -1,4 +1,4 @@
-package com.ikjo39.commerce.model;
+package com.ikjo39.commerce.member.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

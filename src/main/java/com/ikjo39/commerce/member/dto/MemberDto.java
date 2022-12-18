@@ -1,8 +1,8 @@
-package com.ikjo39.commerce.model;
+package com.ikjo39.commerce.member.dto;
 
-import com.ikjo39.commerce.entity.Member;
-import com.ikjo39.commerce.type.Role;
-import com.ikjo39.commerce.type.Status;
+import com.ikjo39.commerce.member.entity.Member;
+import com.ikjo39.commerce.member.entity.Role;
+import com.ikjo39.commerce.member.entity.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Data
-public class MemberResponse {
+public class MemberDto {
 
 	private long id;
 	private String email;
@@ -24,8 +24,8 @@ public class MemberResponse {
 	private String address;
 	private String addressDetail;
 
-	public static MemberResponse of(Member member) {
-		return MemberResponse.builder()
+	public static MemberDto of(Member member) {
+		return MemberDto.builder()
 			.id(member.getId())
 			.email(member.getEmail())
 			.name(member.getName())
