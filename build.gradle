@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.0.0'
+    id 'org.springframework.boot' version '2.7.6'
     id 'io.spring.dependency-management' version '1.1.0'
 }
 
@@ -19,14 +19,27 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    testImplementation('it.ozimov:embedded-redis:0.7.3') {
+        exclude group: 'org.slf4j', module: "slf4j-simple"
+    }
+//    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.data:spring-data-envers'
+//    implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2'
+//    implementation group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
+//    implementation group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
+    implementation 'io.springfox:springfox-boot-starter:3.0.0'
+    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.springframework.security:spring-security-test'
+//    testImplementation 'org.springframework.security:spring-security-test'
 }
 
 tasks.named('test') {
