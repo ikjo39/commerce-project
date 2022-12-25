@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class UpdateProductItemForm {
+
 	private Long id;
 	private Long productId;
 	@NotBlank(message = "이름은 필수 항목 합니다.")

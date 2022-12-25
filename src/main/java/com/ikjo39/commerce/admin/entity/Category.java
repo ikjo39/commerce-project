@@ -1,5 +1,6 @@
 package com.ikjo39.commerce.admin.entity;
 
+import com.ikjo39.commerce.admin.model.CategoryRegisterForm;
 import com.ikjo39.commerce.common.entity.BaseEntity;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +24,16 @@ public class Category extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-		private Long categoryId;
-		private String name;
-		private boolean usingYn;
+	private Long categoryId;
+	private Long adminId;
+	private String name;
+	private boolean usingYn;
+
+	public static Category of(Long adminId, CategoryRegisterForm form) {
+		return Category.builder()
+			.adminId(adminId)
+			.name(form.getName())
+			.usingYn(form.isUsingYn())
+			.build();
+	}
 }
