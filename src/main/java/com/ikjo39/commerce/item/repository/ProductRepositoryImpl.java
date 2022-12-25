@@ -1,18 +1,13 @@
 package com.ikjo39.commerce.item.repository;
 
-import com.ikjo39.commerce.item.dto.ProductDto;
 import com.ikjo39.commerce.item.entity.Product;
 import com.ikjo39.commerce.item.entity.QProduct;
-import com.querydsl.core.QueryResults;
-import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Repository;
 
 @Repository

@@ -11,10 +11,13 @@ public enum ErrorCode {
 	ALREADY_IN_ITEM("이미 등록된 아이템명이 존재합니다."),
 
 	MEMBER_NOT_FOUND("회원정보가 없습니다."),
+	INVALID_ID_OR_PASSWORD("아이디나 패스워드를 확인해주세요."),
 	CATEGORY_NOT_FOUND("카테고리 정보가 없습니다."),
 	PRODUCT_NOT_FOUND("상폼 정보가 없습니다."),
 	PRODUCT_ITEM_NOT_FOUND("아이템 정보가 없습니다."),
 
+	FAIL_BASKET_CHANGE("장바구니에 추가할 수 없습니다."),
+	NOT_ENOUGH_ITEM_AMOUNT("상품에 재고가 부족합니다."),
 	PASSWORD_NOT_MATCH("비밀번호가 일치하지 않습니다."),
 	NEW_AND_RE_PASSWORD_NOT_MATCH("새 비밀번호와 확인 비밀번호가 일치하지 않습니다.");
 	private final String description;
