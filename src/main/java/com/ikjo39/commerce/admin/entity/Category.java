@@ -26,14 +26,14 @@ public class Category extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long categoryId;
 	private Long adminId;
-	private String name;
-	private boolean usingYn;
+	private String categoryName;
+	private boolean availability;
 
 	public static Category of(Long adminId, CategoryRegisterForm form) {
 		return Category.builder()
 			.adminId(adminId)
-			.name(form.getName())
-			.usingYn(form.isUsingYn())
+			.categoryName(form.getCategoryName())
+			.availability(form.isAvailability())
 			.build();
 	}
 }

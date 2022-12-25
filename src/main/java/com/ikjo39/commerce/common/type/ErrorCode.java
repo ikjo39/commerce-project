@@ -17,6 +17,7 @@ public enum ErrorCode {
 	PRODUCT_ITEM_NOT_FOUND("아이템 정보가 없습니다."),
 
 	FAIL_BASKET_CHANGE("장바구니에 추가할 수 없습니다."),
+	NO_BASKET_SEARCHED("해당 일자 사이에 존재하는 장바구니가 없습니다."),
 	NOT_ENOUGH_ITEM_AMOUNT("상품에 재고가 부족합니다."),
 	PASSWORD_NOT_MATCH("비밀번호가 일치하지 않습니다."),
 	NEW_AND_RE_PASSWORD_NOT_MATCH("새 비밀번호와 확인 비밀번호가 일치하지 않습니다.");

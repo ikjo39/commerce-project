@@ -31,19 +31,19 @@ public class ProductService {
 
 	@Transactional
 	public Product addProduct(Long adminId, AddProductForm form) {
-		Category category = categoryRepository.findByName(form.getCategoryName())
+		Category category = categoryRepository.findByCategoryName(form.getCategoryName())
 			.orElseThrow(() -> new CustomException(CATEGORY_NOT_FOUND));
-		return productRepository.save(Product.of(adminId, form, category.getName()));
+		return productRepository.save(Product.of(adminId, form, category.getCategoryName()));
 	}
 
 	@Transactional
 	public Product updateProduct(Long adminId, UpdateProductForm form) {
-		Category category = categoryRepository.findByName(form.getCategoryName())
+		Category category = categoryRepository.findByCategoryName(form.getCategoryName())
 			.orElseThrow(() -> new CustomException(CATEGORY_NOT_FOUND));
 		Product product = productRepository.findByAdminIdAndId(adminId, form.getId())
 			.orElseThrow(() -> new CustomException(PRODUCT_NOT_FOUND));
 		product.setName(form.getName());
-		product.setCategoryName(category.getName());
+		product.setCategoryName(category.getCategoryName());
 		product.setDescription(form.getDescription());
 		product.setPrice(form.getPrice());
 		product.setImage(form.getImage());

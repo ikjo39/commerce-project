@@ -13,6 +13,6 @@ import lombok.Setter;
 @Builder
 public class CategoryRegisterForm {
 
-	private String name;
-	private boolean usingYn;
+	private String categoryName;
+	private boolean availability;
 }

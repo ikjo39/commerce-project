@@ -1,6 +1,9 @@
 package com.ikjo39.commerce.order.entity.redis;
 
 import com.ikjo39.commerce.order.model.AddProductBasketForm;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.redis.core.RedisHash;
 
 @Data
@@ -20,6 +24,7 @@ public class Basket {
 	private Long memberId;
 	private List<Product> products = new ArrayList<>();
 	private List<String> messages = new ArrayList<>();
+	private String createdDate;
 
 	public Basket(Long memberId) {
 		this.memberId = memberId;

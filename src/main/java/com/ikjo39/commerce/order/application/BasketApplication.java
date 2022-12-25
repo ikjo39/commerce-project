@@ -1,6 +1,7 @@
 package com.ikjo39.commerce.order.application;
 
 import static com.ikjo39.commerce.common.type.ErrorCode.NOT_ENOUGH_ITEM_AMOUNT;
+import static com.ikjo39.commerce.common.type.ErrorCode.NO_BASKET_SEARCHED;
 import static com.ikjo39.commerce.common.type.ErrorCode.PRODUCT_NOT_FOUND;
 
 import com.ikjo39.commerce.common.exception.CustomException;
@@ -10,6 +11,8 @@ import com.ikjo39.commerce.item.service.ProductService;
 import com.ikjo39.commerce.order.entity.redis.Basket;
 import com.ikjo39.commerce.order.model.AddProductBasketForm;
 import com.ikjo39.commerce.order.service.BasketService;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -39,12 +42,33 @@ public class BasketApplication {
 		return basketService.addBasket(memberId, form);
 	}
 
+	public Basket updateBasket(Long memberId, Basket basket) {
+		basket.setCreatedDate(of(LocalDate.now()));
+		basketService.putBasket(memberId, basket);
+		return getBasket(memberId);
+	}
+
 	public Basket getBasket(Long memberId) {
 		Basket basket = refreshBasket(basketService.getBasket(memberId));
+		return getRefreshBasket(memberId, basket);
+	}
+
+	public Basket getBasketByLocalDate(Long memberId, LocalDate startDate, LocalDate endDate) {
+		Basket basket = basketService.getBasket(memberId);
+		if (!(beLocalDate(basket.getCreatedDate()).isAfter(startDate) &&
+			beLocalDate(basket.getCreatedDate()).isBefore(endDate))) {
+			throw new CustomException(NO_BASKET_SEARCHED);
+		}
+		return getRefreshBasket(memberId, basket);
+	}
+
+	private Basket getRefreshBasket(Long memberId, Basket basket) {
+		basket = refreshBasket(basket);
 		Basket returnBasket = new Basket();
 		returnBasket.setMemberId(basket.getMemberId());
 		returnBasket.setProducts(basket.getProducts());
 		returnBasket.setMessages(basket.getMessages());
+		returnBasket.setCreatedDate(basket.getCreatedDate());
 		basket.setMessages(new ArrayList<>());
 		basketService.putBasket(memberId, basket);
 		return returnBasket;
@@ -53,6 +77,7 @@ public class BasketApplication {
 	public void clearBasket(Long memberId) {
 		basketService.putBasket(memberId, null);
 	}
+
 
 	private Basket refreshBasket(Basket basket) {
 		Map<Long, Product> productMap = productService.getListByProductIds(
@@ -80,8 +105,8 @@ public class BasketApplication {
 				.collect(Collectors.toMap(ProductItem::getId, productItem -> productItem));
 
 			List<String> tmpMessages = new ArrayList<>();
-			for (int j = 0; j < basketProduct.getItems().size(); i++) {
-				Basket.ProductItem basketProductItem = basketProduct.getItems().get(i);
+			for (int j = 0; j < basketProduct.getItems().size(); j++) {
+				Basket.ProductItem basketProductItem = basketProduct.getItems().get(j);
 				ProductItem pi = productItemMap.get(basketProductItem.getId());
 				if (pi == null) {
 					basketProduct.getItems().remove(basketProductItem);
@@ -89,7 +114,6 @@ public class BasketApplication {
 					tmpMessages.add(basketProductItem.getName() + " 옵션이 삭제되었습니다.");
 					continue;
 				}
-
 				boolean isCountNotEnough = false;
 				if (basketProductItem.getAmount() > productItemMap.get(basketProductItem.getId())
 					.getAmount()) {
@@ -142,5 +166,13 @@ public class BasketApplication {
 				Long currentCount = currentItemCountMap.get(formItem.getId());
 				return formItem.getAmount() + basketCount > currentCount;
 			});
+	}
+
+	private String of(LocalDate date) {
+		return LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+	}
+
+	private LocalDate beLocalDate(String date) {
+		return LocalDate.parse(date, DateTimeFormatter.ISO_DATE);
 	}
 }

@@ -1,6 +1,7 @@
 package com.ikjo39.commerce.admin.service;
 
 import static com.ikjo39.commerce.common.type.ErrorCode.ALREADY_IN_CATEGORY;
+import static com.ikjo39.commerce.common.type.ErrorCode.CATEGORY_NOT_FOUND;
 
 import com.ikjo39.commerce.admin.entity.Category;
 import com.ikjo39.commerce.admin.model.CategoryRegisterForm;
@@ -21,7 +22,7 @@ public class AdminCategoryService {
 	private final CategoryRepository categoryRepository;
 
 	public Category register(Long adminId, CategoryRegisterForm form) {
-		Optional<Category> optionalCategory = categoryRepository.findByName(form.getName());
+		Optional<Category> optionalCategory = categoryRepository.findByCategoryName(form.getCategoryName());
 		if (optionalCategory.isPresent()) {
 			throw new CustomException(ALREADY_IN_CATEGORY);
 		}
@@ -34,8 +35,8 @@ public class AdminCategoryService {
 
 	public String deleteCategory(Long adminId, Long categoryId) {
 		Category category = categoryRepository.findByAdminIdAndCategoryId(adminId, categoryId)
-			.orElseThrow(() -> new CustomException(ALREADY_IN_CATEGORY));
+			.orElseThrow(() -> new CustomException(CATEGORY_NOT_FOUND));
 		categoryRepository.delete(category);
-		return category.getName();
+		return category.getCategoryName();
 	}
 }

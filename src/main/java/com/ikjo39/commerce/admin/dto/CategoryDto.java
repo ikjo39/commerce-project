@@ -12,11 +12,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CategoryDto {
 
-	private String name;
+	private String categoryName;
 
 	public static CategoryDto from(Category category) {
 		return CategoryDto.builder()
-			.name(category.getName())
+			.categoryName(category.getCategoryName())
 			.build();
 	}
 }

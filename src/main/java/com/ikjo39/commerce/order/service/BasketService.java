@@ -3,6 +3,8 @@ package com.ikjo39.commerce.order.service;
 import com.ikjo39.commerce.order.client.RedisClient;
 import com.ikjo39.commerce.order.entity.redis.Basket;
 import com.ikjo39.commerce.order.model.AddProductBasketForm;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -33,6 +35,7 @@ public class BasketService {
 		if (basket == null) {
 			basket = new Basket();
 			basket.setMemberId(memberId);
+			basket.setCreatedDate(of(LocalDate.now()));
 		}
 		Optional<Basket.Product> optionalProduct = basket.getProducts().stream()
 			.filter(product1 -> product1.getId().equals(form.getId()))
@@ -64,5 +67,9 @@ public class BasketService {
 		}
 		redisClient.put(memberId, basket);
 		return basket;
+	}
+
+	private String of(LocalDate date) {
+		return LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 	}
 }
