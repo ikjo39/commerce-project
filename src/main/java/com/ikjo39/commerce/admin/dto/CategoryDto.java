@@ -1,6 +1,7 @@
 package com.ikjo39.commerce.admin.dto;
 
 import com.ikjo39.commerce.admin.entity.Category;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CategoryDto {
-
 	private String categoryName;
 
 	public static CategoryDto from(Category category) {

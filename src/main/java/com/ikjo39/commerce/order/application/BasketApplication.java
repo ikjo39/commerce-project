@@ -1,8 +1,16 @@
 package com.ikjo39.commerce.order.application;
 
-import static com.ikjo39.commerce.common.type.ErrorCode.NOT_ENOUGH_ITEM_AMOUNT;
-import static com.ikjo39.commerce.common.type.ErrorCode.NO_BASKET_SEARCHED;
-import static com.ikjo39.commerce.common.type.ErrorCode.PRODUCT_NOT_FOUND;
+import static com.ikjo39.commerce.common.type.ErrorCode.*;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
 
 import com.ikjo39.commerce.common.exception.CustomException;
 import com.ikjo39.commerce.item.entity.Product;
@@ -11,22 +19,14 @@ import com.ikjo39.commerce.item.service.ProductService;
 import com.ikjo39.commerce.order.entity.redis.Basket;
 import com.ikjo39.commerce.order.model.AddProductBasketForm;
 import com.ikjo39.commerce.order.service.BasketService;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class BasketApplication {
-
 	private final ProductService productService;
 	private final BasketService basketService;
 
@@ -79,14 +79,12 @@ public class BasketApplication {
 		basketService.putBasket(memberId, null);
 	}
 
-
 	protected Basket refreshBasket(Basket basket) {
 		Map<Long, Product> productMap = productService.getListByProductIds(
 				basket.getProducts().stream().map(Basket.Product::getId).collect(
 					Collectors.toList()))
 			.stream()
 			.collect(Collectors.toMap(Product::getId, product -> product));
-
 		// TODO: 각각 케이스 에러가 정상 출력되는지 체크
 		for (int i = 0; i < basket.getProducts().size(); i++) {
 			Basket.Product basketProduct = basket.getProducts().get(i);
@@ -104,7 +102,6 @@ public class BasketApplication {
 			}
 			Map<Long, ProductItem> productItemMap = product.getProductItems().stream()
 				.collect(Collectors.toMap(ProductItem::getId, productItem -> productItem));
-
 			List<String> tmpMessages = new ArrayList<>();
 			for (int j = 0; j < basketProduct.getItems().size(); j++) {
 				Basket.ProductItem basketProductItem = basketProduct.getItems().get(j);

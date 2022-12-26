@@ -1,24 +1,25 @@
 package com.ikjo39.commerce.admin.service;
 
-import static com.ikjo39.commerce.common.type.ErrorCode.ALREADY_IN_CATEGORY;
-import static com.ikjo39.commerce.common.type.ErrorCode.CATEGORY_NOT_FOUND;
+import static com.ikjo39.commerce.common.type.ErrorCode.*;
+
+import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import com.ikjo39.commerce.admin.entity.Category;
 import com.ikjo39.commerce.admin.model.CategoryRegisterForm;
 import com.ikjo39.commerce.admin.repository.CategoryRepository;
 import com.ikjo39.commerce.common.exception.CustomException;
-import java.util.Optional;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class AdminCategoryService {
-
 	private final CategoryRepository categoryRepository;
 
 	public Category register(Long adminId, CategoryRegisterForm form) {

@@ -1,12 +1,5 @@
 package com.ikjo39.commerce.admin.controller;
 
-import com.ikjo39.commerce.admin.dto.CategoryDto;
-import com.ikjo39.commerce.admin.entity.Category;
-import com.ikjo39.commerce.admin.model.CategoryRegisterForm;
-import com.ikjo39.commerce.admin.service.AdminCategoryService;
-import com.ikjo39.commerce.auth.config.JwtAuthenticationProvider;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +12,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ikjo39.commerce.admin.dto.CategoryDto;
+import com.ikjo39.commerce.admin.entity.Category;
+import com.ikjo39.commerce.admin.model.CategoryRegisterForm;
+import com.ikjo39.commerce.admin.service.AdminCategoryService;
+import com.ikjo39.commerce.auth.config.JwtAuthenticationProvider;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 @Slf4j
 @RestController
 @RequestMapping("/admin/category")
 @RequiredArgsConstructor
 public class AdminCategoryController {
-
 	private final AdminCategoryService adminCategoryService;
 	private final JwtAuthenticationProvider provider;
 

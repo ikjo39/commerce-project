@@ -3,6 +3,7 @@ package com.ikjo39.commerce.member.dto;
 import com.ikjo39.commerce.member.entity.Member;
 import com.ikjo39.commerce.member.entity.Role;
 import com.ikjo39.commerce.member.entity.Status;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +14,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 public class MemberDto {
-
 	private long id;
 	private String email;
 	private String name;

@@ -1,19 +1,20 @@
 package com.ikjo39.commerce.member.service;
 
-import static com.ikjo39.commerce.common.type.ErrorCode.INVALID_ID_OR_PASSWORD;
+import static com.ikjo39.commerce.common.type.ErrorCode.*;
+
+import org.springframework.stereotype.Service;
 
 import com.ikjo39.commerce.auth.config.JwtAuthenticationProvider;
 import com.ikjo39.commerce.common.exception.CustomException;
 import com.ikjo39.commerce.member.entity.Member;
 import com.ikjo39.commerce.member.entity.Role;
 import com.ikjo39.commerce.member.model.SignInForm;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class SignInApplication {
-
 	private final JwtAuthenticationProvider provider;
 	private final MemberService memberService;
 

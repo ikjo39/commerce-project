@@ -1,23 +1,25 @@
 package com.ikjo39.commerce.auth.config;
 
+import java.util.Date;
+import java.util.Objects;
+
+import org.springframework.beans.factory.annotation.Value;
+
 import com.ikjo39.commerce.auth.common.UserVo;
 import com.ikjo39.commerce.auth.util.Aes256Util;
 import com.ikjo39.commerce.member.entity.Role;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.UnsupportedJwtException;
-import java.util.Date;
-import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class JwtAuthenticationProvider {
-
-	private final String SECRET_KEY = "secretKey";
-
+	@Value("${spring.jwt.secretKey}")
+	private String SECRET_KEY;
 	private final long TOKEN_VALID_TIME = 1000L * 60 * 60 * 24;
 
 	public String createToken(String userPk, Long id, Role role) {
@@ -35,7 +37,7 @@ public class JwtAuthenticationProvider {
 
 	public boolean validateToken(String jwtToken) {
 		try {
-			Jws<Claims> claimsJws = Jwts.parser().setSigningKey(SECRET_KEY)
+			Jwts.parser().setSigningKey(SECRET_KEY)
 				.parseClaimsJws(jwtToken);
 			return true;
 		} catch (ExpiredJwtException e) {

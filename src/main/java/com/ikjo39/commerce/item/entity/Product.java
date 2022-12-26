@@ -1,10 +1,9 @@
 package com.ikjo39.commerce.item.entity;
 
-import com.ikjo39.commerce.common.entity.BaseEntity;
-import com.ikjo39.commerce.item.model.AddProductForm;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,13 +11,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+
+import org.hibernate.envers.AuditOverride;
+import org.hibernate.envers.Audited;
+
+import com.ikjo39.commerce.common.entity.BaseEntity;
+import com.ikjo39.commerce.item.model.AddProductForm;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.envers.AuditOverride;
-import org.hibernate.envers.Audited;
 
 @Getter
 @Setter
@@ -29,7 +33,6 @@ import org.hibernate.envers.Audited;
 @Entity
 @AuditOverride(forClass = BaseEntity.class)
 public class Product extends BaseEntity {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -51,8 +54,8 @@ public class Product extends BaseEntity {
 			.description(form.getDescription())
 			.image(form.getImage())
 			.price(form.getPrice())
-			.productItems(form.getItems().stream()
-				.map(piForm -> ProductItem.of(adminId, piForm)).collect(Collectors.toList()))
+			.productItems(
+				form.getItems().stream().map(piForm -> ProductItem.of(adminId, piForm)).collect(Collectors.toList()))
 			.build();
 	}
 }

@@ -1,7 +1,11 @@
 package com.ikjo39.commerce.order.application;
 
-import static com.ikjo39.commerce.common.type.ErrorCode.ALREADY_CANCELED_ORDER;
-import static com.ikjo39.commerce.common.type.ErrorCode.ORDER_FAIL_CHECK_BASKET;
+import static com.ikjo39.commerce.common.type.ErrorCode.*;
+
+import java.time.LocalDateTime;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ikjo39.commerce.common.exception.CustomException;
 import com.ikjo39.commerce.common.type.ErrorCode;
@@ -11,15 +15,12 @@ import com.ikjo39.commerce.item.service.ProductItemService;
 import com.ikjo39.commerce.order.entity.OrderBasket;
 import com.ikjo39.commerce.order.entity.redis.Basket;
 import com.ikjo39.commerce.order.repository.OrderBasketRepository;
-import java.time.LocalDateTime;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class OrderApplication {
-
 	private final OrderBasketRepository orderBasketRepository;
 	private final BasketApplication basketApplication;
 	private final ProductItemService productItemService;
@@ -30,7 +31,6 @@ public class OrderApplication {
 		if (orderBasket.getMessages().size() > 0) {
 			throw new CustomException(ORDER_FAIL_CHECK_BASKET);
 		}
-
 		for (Basket.Product product : basket.getProducts()) {
 			for (Basket.ProductItem basketItem : product.getItems()) {
 				ProductItem productItem = productItemService.getProductItem(basketItem.getId());

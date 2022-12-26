@@ -1,22 +1,23 @@
 package com.ikjo39.commerce.order.client;
 
-import static com.ikjo39.commerce.common.type.ErrorCode.FAIL_BASKET_CHANGE;
+import static com.ikjo39.commerce.common.type.ErrorCode.*;
+
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ikjo39.commerce.common.exception.CustomException;
 import com.ikjo39.commerce.order.entity.redis.Basket;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class RedisClient {
-
 	private final RedisTemplate<String, Object> redisTemplate;
 	private static final ObjectMapper mapper = new ObjectMapper();
 
@@ -25,7 +26,7 @@ public class RedisClient {
 	}
 
 	private <T> T get(String key, Class<T> classType) {
-		String redisValue = (String) redisTemplate.opsForValue().get(key);
+		String redisValue = (String)redisTemplate.opsForValue().get(key);
 		if (ObjectUtils.isEmpty(redisValue)) {
 			return null;
 		} else {

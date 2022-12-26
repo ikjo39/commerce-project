@@ -1,12 +1,15 @@
 package com.ikjo39.commerce.member.service;
 
-import static com.ikjo39.commerce.common.type.ErrorCode.ALREADY_IN_ID;
-import static com.ikjo39.commerce.common.type.ErrorCode.MEMBER_NOT_FOUND;
-import static com.ikjo39.commerce.common.type.ErrorCode.NEW_AND_RE_PASSWORD_NOT_MATCH;
-import static com.ikjo39.commerce.common.type.ErrorCode.PASSWORD_NOT_MATCH;
-import static com.ikjo39.commerce.member.entity.Role.ROLE_ADMIN;
-import static com.ikjo39.commerce.member.entity.Role.ROLE_MEMBER;
-import static com.ikjo39.commerce.member.entity.Status.ING;
+import static com.ikjo39.commerce.common.type.ErrorCode.*;
+import static com.ikjo39.commerce.member.entity.Role.*;
+import static com.ikjo39.commerce.member.entity.Status.*;
+
+import java.util.Objects;
+import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import com.ikjo39.commerce.auth.util.Aes256Util;
 import com.ikjo39.commerce.common.exception.CustomException;
@@ -16,19 +19,14 @@ import com.ikjo39.commerce.member.model.MemberUpdatePassword;
 import com.ikjo39.commerce.member.model.SignInForm;
 import com.ikjo39.commerce.member.model.SignUpForm;
 import com.ikjo39.commerce.member.repository.MemberRepository;
-import java.util.Objects;
-import java.util.Optional;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class MemberService {
-
 	private final MemberRepository memberRepository;
 
 	public Member registerMember(SignUpForm form) {

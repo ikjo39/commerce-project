@@ -1,13 +1,14 @@
 package com.ikjo39.commerce.auth.util;
 
 import java.nio.charset.StandardCharsets;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+
 import org.apache.tomcat.util.codec.binary.Base64;
 
 public class Aes256Util {
-
 	public static String algorithm = "AES/CBC/PKCS5Padding";
 	private static final String KEY = "ZEROBASEKEYISZEROBASEKEY";
 	private static final String IV = KEY.substring(0, 16);

@@ -1,6 +1,7 @@
 package com.ikjo39.commerce.item.model;
 
 import com.ikjo39.commerce.item.dto.ProductDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductResult {
-
 	private Long id;
 	private String categoryName;
 	private String name;

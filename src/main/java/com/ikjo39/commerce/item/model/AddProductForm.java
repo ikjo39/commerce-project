@@ -1,8 +1,9 @@
 package com.ikjo39.commerce.item.model;
 
-
 import java.util.List;
+
 import javax.validation.constraints.NotBlank;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,7 +14,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class AddProductForm {
-
 	@NotBlank(message = "이름은 필수 항목 합니다.")
 	private String name;
 	@NotBlank(message = "카테고리명은 필수 항목 합니다.")

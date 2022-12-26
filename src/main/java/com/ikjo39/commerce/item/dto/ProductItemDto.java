@@ -1,7 +1,7 @@
 package com.ikjo39.commerce.item.dto;
 
-import com.ikjo39.commerce.item.entity.OrderStatus;
 import com.ikjo39.commerce.item.entity.ProductItem;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,7 +14,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductItemDto {
-
 	private Long id;
 	private String name;
 	private Long amount;

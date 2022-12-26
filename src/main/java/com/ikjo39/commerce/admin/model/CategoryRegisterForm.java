@@ -12,7 +12,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class CategoryRegisterForm {
-
 	private String categoryName;
 	private boolean availability;
 }
