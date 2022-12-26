@@ -1,13 +1,14 @@
 package com.ikjo39.commerce.item.model;
 
-
 import java.util.List;
+
 import javax.validation.constraints.NotBlank;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-// 목킹?
+
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor

@@ -12,7 +12,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class MemberUpdateForm {
-
 	private String phoneNumber;
 	private String zipCode;
 	private String address;
