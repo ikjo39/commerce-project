@@ -24,7 +24,7 @@ public class MemberDto {
 	private String address;
 	private String addressDetail;
 
-	public static MemberDto of(Member member) {
+	public static MemberDto from(Member member) {
 		return MemberDto.builder()
 			.id(member.getId())
 			.email(member.getEmail())

@@ -33,6 +33,7 @@ public class Product extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	private Long adminId;
 	private String categoryName;
 	private String name;
 	private String description;
@@ -42,15 +43,16 @@ public class Product extends BaseEntity {
 	@JoinColumn(name = "product_id")
 	private List<ProductItem> productItems = new ArrayList<>();
 
-	public static Product of(AddProductForm form, String categoryName) {
+	public static Product of(Long adminId, AddProductForm form, String categoryName) {
 		return Product.builder()
+			.adminId(adminId)
 			.categoryName(categoryName)
 			.name(form.getName())
 			.description(form.getDescription())
 			.image(form.getImage())
 			.price(form.getPrice())
 			.productItems(form.getItems().stream()
-				.map(ProductItem::from).collect(Collectors.toList()))
+				.map(piForm -> ProductItem.of(adminId, piForm)).collect(Collectors.toList()))
 			.build();
 	}
 }

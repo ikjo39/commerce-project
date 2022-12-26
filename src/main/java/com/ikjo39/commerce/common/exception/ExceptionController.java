@@ -2,6 +2,7 @@ package com.ikjo39.commerce.common.exception;
 
 import com.ikjo39.commerce.common.type.ErrorCode;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,7 @@ public class ExceptionController {
 
 	@Getter
 	@ToString
+	@Builder
 	@AllArgsConstructor
 	public static class ExceptionResponse {
 

@@ -30,6 +30,7 @@ public class ProductItem extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	private Long adminId;
 	@Audited
 	private String name;
 	@Audited
@@ -40,8 +41,9 @@ public class ProductItem extends BaseEntity {
 	@JoinColumn(name = "product_id")
 	private Product product;
 
-	public static ProductItem from(AddProductItemForm form) {
+	public static ProductItem of(Long adminId, AddProductItemForm form) {
 		return ProductItem.builder()
+			.adminId(adminId)
 			.name(form.getName())
 			.status(DISPLAYED)
 			.amount(form.getAmount())
