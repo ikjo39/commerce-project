@@ -1,20 +1,26 @@
 package com.ikjo39.commerce.member.controller;
 
+import static com.ikjo39.commerce.common.type.ErrorCode.MEMBER_NOT_FOUND;
+
+import com.ikjo39.commerce.auth.common.UserVo;
+import com.ikjo39.commerce.auth.config.JwtAuthenticationProvider;
+import com.ikjo39.commerce.common.exception.CustomException;
+import com.ikjo39.commerce.member.dto.MemberDto;
 import com.ikjo39.commerce.member.entity.Member;
-import com.ikjo39.commerce.member.model.MemberResponse;
-import com.ikjo39.commerce.member.model.MemberUpdatePassword;
-import com.ikjo39.commerce.member.model.SignUpForm;
 import com.ikjo39.commerce.member.model.MemberUpdateForm;
+import com.ikjo39.commerce.member.model.MemberUpdatePassword;
+import com.ikjo39.commerce.member.model.SignInForm;
 import com.ikjo39.commerce.member.service.MemberService;
+import com.ikjo39.commerce.member.service.SignInApplication;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,29 +29,37 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MemberController {
 
+	private final SignInApplication signInApplication;
 	private final MemberService memberService;
+	private final JwtAuthenticationProvider provider;
 
-	@PostMapping("/register")
-	public ResponseEntity<?> register(@RequestBody @Valid SignUpForm form) {
-		Member member = memberService.register(form);
-		return ResponseEntity.ok(MemberResponse.of(member));
+	@GetMapping("/getInfo")
+	public ResponseEntity<MemberDto> getInfo(@RequestHeader(name = "X-AUTH-TOKEN") String token) {
+		UserVo vo = provider.getUserVo(token);
+		Member member = memberService.findByIdAndEmail(vo.getId(), vo.getEmail())
+			.orElseThrow(() -> new CustomException(MEMBER_NOT_FOUND));
+		return ResponseEntity.ok(MemberDto.from(member));
 	}
 
-	@GetMapping("/{id}")
-	public ResponseEntity<?> memberInfo(@PathVariable Long id) {
-		Member member = memberService.getMember(id);
-		return ResponseEntity.ok(member);
-	}
-
-	@PutMapping("/update/{id}")
-	public ResponseEntity<?> update(@PathVariable Long id,
+	@PutMapping("/update")
+	public ResponseEntity<MemberDto> update(@RequestHeader(name = "X-AUTH-TOKEN") String token,
 		@RequestBody @Valid MemberUpdateForm form) {
-		Member member = memberService.update(id, form);
-		return ResponseEntity.ok(member);
+		UserVo vo = provider.getUserVo(token);
+		Member member = memberService.update(vo.getId(), form);
+		return ResponseEntity.ok(MemberDto.from(member));
 	}
 
-	@PatchMapping("/newPassword/{email}")
-	public ResponseEntity<?> changePassword(@PathVariable String email, @RequestBody @Valid MemberUpdatePassword form) {
-		return ResponseEntity.ok(memberService.updatePassword(email, form));
+	@PatchMapping("/newPassword")
+	public ResponseEntity<MemberDto> changePassword(
+		@RequestHeader(name = "X-AUTH-TOKEN") String token,
+		@RequestBody @Valid MemberUpdatePassword form) {
+		UserVo vo = provider.getUserVo(token);
+		Member member = memberService.updatePassword(vo.getEmail(), form);
+		return ResponseEntity.ok(MemberDto.from(member));
+	}
+
+	@PostMapping("/signIn")
+	public ResponseEntity<String> signInCustomer(@RequestBody SignInForm form) {
+		return ResponseEntity.ok(signInApplication.memberLoginToken(form));
 	}
 }
