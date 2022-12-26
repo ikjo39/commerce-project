@@ -2,6 +2,7 @@ package com.ikjo39.commerce.order.controller;
 
 import com.ikjo39.commerce.auth.config.JwtAuthenticationProvider;
 import com.ikjo39.commerce.order.application.BasketApplication;
+import com.ikjo39.commerce.order.application.OrderApplication;
 import com.ikjo39.commerce.order.entity.redis.Basket;
 import com.ikjo39.commerce.order.model.AddProductBasketForm;
 import java.time.LocalDate;
@@ -24,6 +25,7 @@ public class MemberBasketController {
 
 	private final BasketApplication basketApplication;
 	private final JwtAuthenticationProvider provider;
+	private final OrderApplication orderApplication;
 
 	@PostMapping
 	public ResponseEntity<?> addBasket(
@@ -57,5 +59,21 @@ public class MemberBasketController {
 		return ResponseEntity.ok(
 			basketApplication.updateBasket(provider.getUserVo(token).getId(), basket)
 		);
+	}
+
+	@PostMapping("/order")
+	public ResponseEntity<?> orderBasket(
+		@RequestHeader(name = "X-AUTH-TOKEN") String token,
+		@RequestBody Basket basket) {
+		return ResponseEntity.ok(
+			orderApplication.orderBasket(provider.getUserVo(token).getId(), basket));
+	}
+
+	@PutMapping("/order/cancel")
+	public ResponseEntity<?> orderCancelBasket(
+		@RequestHeader(name = "X-AUTH-TOKEN") String token,
+		@RequestBody Basket basket, @RequestParam Long orderId) {
+		return ResponseEntity.ok(
+			orderApplication.orderCancelBasket(provider.getUserVo(token).getId(), basket, orderId));
 	}
 }
