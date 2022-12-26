@@ -44,6 +44,7 @@ public class Basket {
 		private Long adminId;
 		private String categoryName;
 		private String name;
+		private String image;
 		private String description;
 		private Long price;
 		private List<ProductItem> items = new ArrayList<>();
@@ -54,6 +55,7 @@ public class Basket {
 				.adminId(form.getAdminId())
 				.categoryName(form.getCategoryName())
 				.name(form.getName())
+				.image(form.getImage())
 				.description(form.getDescription())
 				.price(form.getPrice())
 				.items(form.getItems().stream().map(ProductItem::from).collect(Collectors.toList()))

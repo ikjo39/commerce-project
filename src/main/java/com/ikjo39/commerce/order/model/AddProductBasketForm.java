@@ -17,6 +17,7 @@ public class AddProductBasketForm {
 	private Long adminId;
 	private String categoryName;
 	private String name;
+	private String image;
 	private String description;
 	private Long price;
 	private List<ProductItem> items;

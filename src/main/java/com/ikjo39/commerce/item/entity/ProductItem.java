@@ -1,7 +1,5 @@
 package com.ikjo39.commerce.item.entity;
 
-import static com.ikjo39.commerce.item.entity.OrderStatus.DISPLAYED;
-
 import com.ikjo39.commerce.common.entity.BaseEntity;
 import com.ikjo39.commerce.item.model.AddProductItemForm;
 import javax.persistence.Entity;
@@ -33,8 +31,6 @@ public class ProductItem extends BaseEntity {
 	private Long adminId;
 	@Audited
 	private String name;
-	@Audited
-	private OrderStatus status;
 	private Long amount;
 
 	@ManyToOne
@@ -45,7 +41,6 @@ public class ProductItem extends BaseEntity {
 		return ProductItem.builder()
 			.adminId(adminId)
 			.name(form.getName())
-			.status(DISPLAYED)
 			.amount(form.getAmount())
 			.build();
 	}

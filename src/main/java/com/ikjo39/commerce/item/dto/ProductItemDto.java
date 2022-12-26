@@ -17,14 +17,12 @@ public class ProductItemDto {
 
 	private Long id;
 	private String name;
-	private OrderStatus status;
 	private Long amount;
 
 	public static ProductItemDto from(ProductItem item) {
 		return ProductItemDto.builder()
 			.id(item.getId())
 			.name(item.getName())
-			.status(item.getStatus())
 			.amount(item.getAmount())
 			.build();
 	}
