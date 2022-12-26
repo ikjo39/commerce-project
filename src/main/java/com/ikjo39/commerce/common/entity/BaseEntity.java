@@ -20,7 +20,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class BaseEntity {
 
 	@CreatedDate
-	private LocalDateTime createdAt;
+	private LocalDateTime registerDate;
 	@LastModifiedDate
-	private LocalDateTime updatedAt;
+	private LocalDateTime updateDate;
 }
