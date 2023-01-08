@@ -7,7 +7,6 @@ import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -21,7 +20,6 @@ import com.ikjo39.commerce.member.dto.MemberDto;
 import com.ikjo39.commerce.member.entity.Member;
 import com.ikjo39.commerce.member.model.MemberUpdateForm;
 import com.ikjo39.commerce.member.model.MemberUpdatePassword;
-import com.ikjo39.commerce.member.model.SignInForm;
 import com.ikjo39.commerce.member.service.MemberService;
 import com.ikjo39.commerce.member.service.SignInApplication;
 
@@ -60,8 +58,4 @@ public class MemberController {
 		return ResponseEntity.ok(MemberDto.from(member));
 	}
 
-	@PostMapping("/signIn")
-	public ResponseEntity<String> signInCustomer(@RequestBody SignInForm form) {
-		return ResponseEntity.ok(signInApplication.memberLoginToken(form));
-	}
 }
