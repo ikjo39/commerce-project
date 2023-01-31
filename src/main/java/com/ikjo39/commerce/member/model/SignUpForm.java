@@ -2,6 +2,7 @@ package com.ikjo39.commerce.member.model;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,7 +15,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class SignUpForm {
-
 	@Email(message = "이메일 형식에 맞게 입력해 주세요.")
 	@NotBlank(message = "아이디는 필수 항목 합니다.")
 	private String email;

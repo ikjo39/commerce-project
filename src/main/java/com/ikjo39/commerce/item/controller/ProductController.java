@@ -1,26 +1,25 @@
 package com.ikjo39.commerce.item.controller;
 
-import com.ikjo39.commerce.item.dto.ProductDto;
-import com.ikjo39.commerce.item.model.ProductResult;
-import com.ikjo39.commerce.item.service.ProductItemService;
-import com.ikjo39.commerce.item.service.ProductService;
 import java.util.List;
 import java.util.stream.Collectors;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ikjo39.commerce.item.dto.ProductDto;
+import com.ikjo39.commerce.item.model.ProductResult;
+import com.ikjo39.commerce.item.service.ProductService;
+
+import lombok.RequiredArgsConstructor;
+
 @RestController
 @RequestMapping("/item")
 @RequiredArgsConstructor
 public class ProductController {
-
 	private final ProductService productService;
-	private final ProductItemService productItemService;
 
 	@GetMapping("/search/name")
 	public ResponseEntity<?> searchProductByName(@RequestParam String name) {

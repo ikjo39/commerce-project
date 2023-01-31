@@ -1,8 +1,10 @@
 package com.ikjo39.commerce.item.dto;
 
-import com.ikjo39.commerce.item.entity.Product;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.ikjo39.commerce.item.entity.Product;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,7 +17,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductDto {
-
 	private Long id;
 	private String categoryName;
 	private String name;

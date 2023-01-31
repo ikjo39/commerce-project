@@ -10,7 +10,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaAuditing
 @EnableJpaRepositories(repositoryFactoryBeanClass = EnversRevisionRepositoryFactoryBean.class)
 public class CommerceProjectApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(CommerceProjectApplication.class, args);
 	}

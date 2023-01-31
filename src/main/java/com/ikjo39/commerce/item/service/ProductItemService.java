@@ -1,21 +1,21 @@
 package com.ikjo39.commerce.item.service;
 
-import static com.ikjo39.commerce.common.type.ErrorCode.ALREADY_IN_ITEM;
-import static com.ikjo39.commerce.common.type.ErrorCode.PRODUCT_ITEM_NOT_FOUND;
-import static com.ikjo39.commerce.common.type.ErrorCode.PRODUCT_NOT_FOUND;
+import static com.ikjo39.commerce.common.type.ErrorCode.*;
+
+import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Service;
 
 import com.ikjo39.commerce.common.exception.CustomException;
 import com.ikjo39.commerce.item.entity.Product;
 import com.ikjo39.commerce.item.entity.ProductItem;
 import com.ikjo39.commerce.item.model.AddProductItemForm;
-import com.ikjo39.commerce.item.model.UpdateProductForm;
 import com.ikjo39.commerce.item.model.UpdateProductItemForm;
 import com.ikjo39.commerce.item.repository.ProductItemRepository;
 import com.ikjo39.commerce.item.repository.ProductRepository;
-import javax.transaction.Transactional;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
@@ -25,21 +25,26 @@ public class ProductItemService {
 	private final ProductItemRepository productItemRepository;
 
 	@Transactional
-	public Product addProductItem(AddProductItemForm form) {
-		Product product = productRepository.findById(form.getProductId())
+	public ProductItem getProductItem(Long id) {
+		return productItemRepository.getReferenceById(id);
+	}
+
+	@Transactional
+	public Product addProductItem(Long adminId, AddProductItemForm form) {
+		Product product = productRepository.findByAdminIdAndId(adminId, form.getProductId())
 			.orElseThrow(() -> new CustomException(PRODUCT_NOT_FOUND));
-		if (product.getProductItems().stream()
-			.anyMatch(item -> item.getName().equals(form.getName()))) {
+		if (product.getProductItems().stream().anyMatch(item -> item.getName().equals(form.getName()))) {
 			throw new CustomException(ALREADY_IN_ITEM);
 		}
-		ProductItem productItem = ProductItem.from(form);
+		ProductItem productItem = ProductItem.of(adminId, form);
 		product.getProductItems().add(productItem);
 		return product;
 	}
 
 	@Transactional
-	public ProductItem updateProductItem(UpdateProductItemForm form) {
+	public ProductItem updateProductItem(Long adminId, UpdateProductItemForm form) {
 		ProductItem productItem = productItemRepository.findById(form.getId())
+			.filter(pi -> pi.getAdminId().equals(adminId))
 			.orElseThrow(() -> new CustomException(PRODUCT_ITEM_NOT_FOUND));
 		productItem.setName(form.getName());
 		productItem.setAmount(form.getAmount());
@@ -47,8 +52,9 @@ public class ProductItemService {
 	}
 
 	@Transactional
-	public String deleteProductItem(Long productItemId) {
+	public String deleteProductItem(Long adminId, Long productItemId) {
 		ProductItem productItem = productItemRepository.findById(productItemId)
+			.filter(pi -> pi.getAdminId().equals(adminId))
 			.orElseThrow(() -> new CustomException(PRODUCT_ITEM_NOT_FOUND));
 		productItemRepository.delete(productItem);
 		return productItem.getName();
